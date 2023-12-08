@@ -7,8 +7,8 @@
     <ProjectGuid>{290AD5DB-A5C4-4DF1-A960-B2045CF9EBD4}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>FourUI</RootNamespace>
-    <AssemblyName>FourUI</AssemblyName>
+    <RootNamespace>FourUIX</RootNamespace>
+    <AssemblyName>FourUIX</AssemblyName>
     <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <Deterministic>true</Deterministic>
@@ -90,7 +90,7 @@
     <Compile Include="Controls\FourSpinner.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Controls\FourVProgressBar.cs">
+    <Compile Include="Controls\FourHProgressBar.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\FourStarRating.cs">

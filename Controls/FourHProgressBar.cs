@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-public class FourVProgressBar : Control
+public class FourHProgressBar : Control
 {
     private int value = 0;
     private int minimum = 0;
@@ -33,7 +33,6 @@ public class FourVProgressBar : Control
         get { return borderColor; }
         set
         {
-
             borderColor = value;
             Invalidate();
         }
@@ -47,7 +46,6 @@ public class FourVProgressBar : Control
         get { return borderWidth; }
         set
         {
-
             borderWidth = value;
             Invalidate();
         }
@@ -62,10 +60,9 @@ public class FourVProgressBar : Control
         set { _bgColor = value; Invalidate(); }
     }
 
-
     public event EventHandler ValueChanged;
 
-    public FourVProgressBar()
+    public FourHProgressBar()
     {
         this.Size = new System.Drawing.Size(200, 30);
         this.DoubleBuffered = true;
@@ -121,15 +118,26 @@ public class FourVProgressBar : Control
     {
         base.OnPaint(e);
 
+        int thirtyPercent = (int)((double)(Maximum / 100) * 30);
+        int onePercent = (int)((double)(Maximum / 100) * 1);
+        int twoPercent = (int)((double)(Maximum / 100) * 2);
+        int threePercent = (int)((double)(Maximum / 100) * 2);
+
+
         if (Parent != null)
         {
             MaximumSize = new Size(Parent.Width, 62);
-            MinimumSize = new Size(Height, 0);
+            MinimumSize = new Size(Height, 2);
         }
 
         Rectangle crect = ClientRectangle;
         crect.Inflate(5, 5);
         crect.Offset(-2, -2);
+
+        if (Value > thirtyPercent * 3)
+        {
+
+        }
 
         if (BackColor != Color.Transparent)
         {
@@ -138,81 +146,86 @@ public class FourVProgressBar : Control
 
         e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-        int trackHeight;
-        if (Height > 5)
-        {
-            trackHeight = Height - 4;
-        }
-        else
-        {
-            trackHeight = Height;
-        }
+        int trackHeight = Height - 2;
         float thumbPosition = (float)((value - minimum) / (double)(maximum - minimum)) * (Width - 20);
-        Rectangle trackRectBehindThumb = new Rectangle(2, (Height - trackHeight) / 2, (int)thumbPosition, trackHeight);
-        Rectangle trackRectAfterThumb = new Rectangle((int)thumbPosition, (Height - trackHeight) / 2, Width - (int)thumbPosition, trackHeight);
-        float radius = trackHeight / 2;
 
-        Color trackColorBehindThumb = progressColor;
 
-        int offset = 27;
-
-        float multiplier = offset / (float)Width;
-
-        float behindThumbOffset = trackRectBehindThumb.Width;
-        behindThumbOffset *= multiplier;
-
-        if (thumbPosition > Width / 2)
+        int newV = (Value * 30);
+        newV = Math.Min(newV, 34);
+        newV = Math.Max(newV, 40);
+        thumbPosition = thumbPosition + newV;
+        if (Value == onePercent)
         {
-            //i dont know why, but this just works
-            behindThumbOffset -= (behindThumbOffset / (float)4.5);
+            thumbPosition = thumbPosition + (Height / 8);
+        }
+        if (Value == twoPercent)
+        {
+            thumbPosition = thumbPosition + (Height / 9);
+        }
+        if (Value == threePercent)
+        {
+            thumbPosition = thumbPosition + (Height / 10);
+        }
+        
+        //never let me cook up progress bars again 
+
+        if (Value > 67)
+        {
+            thumbPosition -= onePercent;
         }
 
-        trackRectBehindThumb.Inflate((int)-behindThumbOffset, 0);
-        trackRectBehindThumb.Offset((int)-behindThumbOffset, 0);
-        trackRectBehindThumb.Inflate(offset, 0);
-        trackRectBehindThumb.Offset(offset, 0);
-
-        int roundedradius = Convert.ToInt32(Math.Round(radius, 0));
-
-        GraphicsPath trackPathAfterThumb = RoundedRectangle(trackRectAfterThumb, roundedradius);
-
-        GraphicsPath trackPathBehindThumb = RoundedRectangle(trackRectBehindThumb, roundedradius);
-
-        Rectangle wholeRect = e.ClipRectangle;
-        wholeRect.Inflate(-1, -1);
-
-        var outlinepath = RoundedRectangle(wholeRect, roundedradius);
-
-        using (GraphicsPath thumbPath = new GraphicsPath())
+        if (Value > 77)
         {
+            thumbPosition -= twoPercent;
+        }
 
+        if (Value > 87)
+        {
+            thumbPosition -= threePercent;
+        }
 
+        if (Value > 97)
+        {
+            thumbPosition -= (threePercent + 1);
+        }
 
-            using (SolidBrush trackBrushBehindThumb = new SolidBrush(trackColorBehindThumb))
-            using (SolidBrush trackBrushAfterThumb = new SolidBrush(_bgColor))
-            using (SolidBrush thumbBrush = new SolidBrush(progressColor))
+        Rectangle trackRectBehindThumb = new Rectangle(1, Height / 2 - trackHeight / 2, Width - 3, trackHeight);
+        Rectangle trackRectAfterThumb = new Rectangle(1, Height / 2 - trackHeight / 2, (int)thumbPosition, trackHeight);
+
+        if (Value > 0)
+        {
+            trackRectBehindThumb.Inflate(-1, 0);
+            trackRectBehindThumb.Offset(1, 0);
+        }
+
+        using (SolidBrush bgBrush = new SolidBrush(_bgColor))
+        {
+            e.Graphics.FillPath(bgBrush, RoundedRectangle(trackRectBehindThumb, ((Height / 2) - 2)));
+        }
+
+        if (Value > 0)
+        {
+            using (SolidBrush progressBrush = new SolidBrush(progressColor))
             {
-
-                e.Graphics.FillPath(trackBrushAfterThumb, trackPathAfterThumb);
-                if (value != 0)
-                {
-
-
-                    e.Graphics.FillPath(trackBrushBehindThumb, trackPathBehindThumb);
-                }
-
-
+                e.Graphics.FillPath(progressBrush, RoundedRectangle(trackRectAfterThumb, ((Height / 2) - 2)));
             }
         }
 
-        e.Graphics.DrawPath(new Pen(BorderColor), outlinepath);
+        using (Pen borderPen = new Pen(borderColor, borderWidth))
+        {
+            e.Graphics.DrawPath(borderPen, RoundedRectangle(trackRectBehindThumb, ((Height / 2) - 2)));
+        }
     }
+
 
     private GraphicsPath RoundedRectangle(Rectangle rect, int radius)
     {
         GraphicsPath path = new GraphicsPath();
 
-        path.AddArc(rect.X, rect.Y, radius * 2, radius * 2, 180, 90); path.AddArc(rect.Right - 2 * radius, rect.Y, radius * 2, radius * 2, 270, 90); path.AddArc(rect.Right - 2 * radius, rect.Bottom - 2 * radius, radius * 2, radius * 2, 0, 90); path.AddArc(rect.X, rect.Bottom - 2 * radius, radius * 2, radius * 2, 90, 90);
+        path.AddArc(rect.X, rect.Y, radius * 2, radius * 2, 180, 90);
+        path.AddArc(rect.Right - 2 * radius, rect.Y, radius * 2, radius * 2, 270, 90);
+        path.AddArc(rect.Right - 2 * radius, rect.Bottom - 2 * radius, radius * 2, radius * 2, 0, 90);
+        path.AddArc(rect.X, rect.Bottom - 2 * radius, radius * 2, radius * 2, 90, 90);
         path.CloseFigure();
 
         return path;
