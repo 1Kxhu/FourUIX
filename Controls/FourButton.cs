@@ -2,11 +2,17 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Windows;
 using System.Windows.Forms;
+using Application = System.Windows.Forms.Application;
+using FontStyle = System.Drawing.FontStyle;
+using Point = System.Drawing.Point;
+using Size = System.Drawing.Size;
 
-namespace FourUI
+namespace FourUIX.Controls
 {
     public class FourButton : Button
     {
@@ -16,13 +22,14 @@ namespace FourUI
         private Color _UnfocusedborderColor = Color.FromArgb(45, 45, 45);
         private Color _FocusedborderColor = Color.FromArgb(45, 45, 45);
 
-
-        private Color _hoverColor = Color.FromArgb(14,14,14);
-        private Color _fillColor = Color.FromArgb(10,10,10);
-        private Color _pressColor = Color.FromArgb(6,6,6);
+        private Color _hoverColor = Color.FromArgb(14, 14, 14);
+        private Color _fillColor = Color.FromArgb(10, 10, 10);
+        private Color _pressColor = Color.FromArgb(6, 6, 6);
 
         private Color currentBorderColor = Color.Empty;
         private Color currentColor;
+
+        private Color hoverForeColor = Color.FromArgb(200, 200, 200);
 
         [Browsable(true)]
         [Category("FourUI")]
@@ -33,6 +40,19 @@ namespace FourUI
             set
             {
                 _hoverColor = value;
+                Refresh();
+            }
+        }
+
+        [Browsable(true)]
+        [Category("FourUI")]
+        [Description("The hover text color.")]
+        public Color HoverForeColor
+        {
+            get { return hoverForeColor; }
+            set
+            {
+                hoverForeColor = value;
                 Refresh();
             }
         }
@@ -81,7 +101,7 @@ namespace FourUI
         }
 
         [Browsable(true)]
-        [Category("Appearance")]
+        [Category("FourUI")]
         [Description("The color of the border.")]
         public Color UnfocusedBorderColor
         {
@@ -96,7 +116,7 @@ namespace FourUI
         }
 
         [Browsable(true)]
-        [Category("Appearance")]
+        [Category("FourUI")]
         [Description("The color of the border.")]
         public Color FocusedBorderColor
         {
@@ -111,7 +131,7 @@ namespace FourUI
         }
 
         [Browsable(true)]
-        [Category("Appearance")]
+        [Category("FourUI")]
         [Description("The color of the border.")]
         public int BorderWidth
         {
@@ -143,6 +163,8 @@ namespace FourUI
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
             SetStyle(ControlStyles.Opaque, true);
             SetStyle(ControlStyles.ResizeRedraw, true);
+            DoubleBuffered = true;
+            SetStyle(ControlStyles.DoubleBuffer, true);
         }
 
         private CancellationTokenSource cancellationTokenSource;
@@ -392,12 +414,17 @@ namespace FourUI
             }
 
             imageX += ImageOffset.X;
+            if (BackgroundImage != null)
+            {
+                pevent.Graphics.DrawImage(BackgroundImage, ClientRectangle);
+            }
 
 
-            using (SolidBrush brush = new SolidBrush(Parent.BackColor))
+            using (SolidBrush brush = new SolidBrush(BackColor))
             {
                 pevent.Graphics.FillRectangle(brush, ClientRectangle);
             }
+
 
             if (_buttonmode == ButtonModeEnum.CheckButton && Checked)
             {
@@ -430,17 +457,11 @@ namespace FourUI
                     pevent.Graphics.DrawPath(pen, path);
                 }
 
-                TextFormatFlags flag = TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter;
 
                 if (checkedbuttonImage != null)
                 {
-                    pevent.Graphics.DrawImage(checkedbuttonImage, new Rectangle(new Point(imageX, ImageOffset.Y + (Height - displaySize.Height) / 2), displaySize));
+                    pevent.Graphics.DrawImage(checkedbuttonImage, new Rectangle(new System.Drawing.Point(imageX, ImageOffset.Y + (Height - displaySize.Height) / 2), displaySize));
                 }
-
-
-                TextRenderer.DrawText(pevent.Graphics, Text, Font, rect, CheckedForeColor,
-
-    flag);
             }
             else
             {
@@ -475,7 +496,6 @@ namespace FourUI
                     pevent.Graphics.DrawPath(pen, path);
                 }
 
-                TextFormatFlags flag = TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter;
 
                 if (ButtonImage != null)
                 {
@@ -485,12 +505,77 @@ namespace FourUI
                 int xoffset = TextOffset.X;
                 int yoffset = TextOffset.Y;
 
-                Rectangle textrect = rect;
-                textrect.Offset(xoffset, yoffset);
+            }
 
-                TextRenderer.DrawText(pevent.Graphics, Text, Font, textrect, ForeColor,
+            pevent.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-    flag);
+            if (hovering && !Checked && ButtonMode == ButtonModeEnum.CheckButton)
+            {
+                Rectangle rect = new Rectangle(ClientRectangle.Left, ClientRectangle.Top,
+                              ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+                TextFormatFlags flag = TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter;
+                TextRenderer.DrawText(pevent.Graphics, Text, Font, rect, HoverForeColor, flag);
+            }
+            if (hovering && ButtonMode == ButtonModeEnum.Default)
+            {
+                Rectangle rect = new Rectangle(ClientRectangle.Left, ClientRectangle.Top,
+                                ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+                TextFormatFlags flag = TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter;
+                TextRenderer.DrawText(pevent.Graphics, Text, Font, rect, HoverForeColor, flag);
+            }
+            if (!hovering && ButtonMode == ButtonModeEnum.Default)
+            {
+                Rectangle rect = new Rectangle(ClientRectangle.Left, ClientRectangle.Top,
+                                ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+                TextFormatFlags flag = TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter;
+                TextRenderer.DrawText(pevent.Graphics, Text, Font, rect, ForeColor, flag);
+            }
+            if (Checked && ButtonMode == ButtonModeEnum.CheckButton)
+            {
+                Rectangle rect = new Rectangle(ClientRectangle.Left, ClientRectangle.Top,
+                           ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+                TextFormatFlags flag = TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter;
+                TextRenderer.DrawText(pevent.Graphics, Text, Font, rect, CheckedForeColor, flag);
+            }
+            if (!Checked && ButtonMode == ButtonModeEnum.CheckButton)
+            {
+                Rectangle rect = new Rectangle(ClientRectangle.Left, ClientRectangle.Top,
+                           ClientRectangle.Width - 1, ClientRectangle.Height - 1);
+                TextFormatFlags flag = TextFormatFlags.HorizontalCenter | TextFormatFlags.VerticalCenter;
+                TextRenderer.DrawText(pevent.Graphics, Text, Font, rect, ForeColor, flag);
+            }
+        }
+
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            try
+            {
+                if (BackgroundImage != null)
+                {
+                    e.Graphics.DrawImage(BackgroundImage, ClientRectangle);
+                }
+                else
+                {
+                    if (Parent != null)
+                    {
+                        using (var bmp = new Bitmap(Parent.Width * 2, Parent.Height * 2))
+                        {
+                            Parent.Controls.Cast<Control>().Where(c => Parent.Controls.GetChildIndex(c) > Parent.Controls.GetChildIndex(this))
+                                .ToList()
+                                .ForEach(c => c.DrawToBitmap(bmp, new Rectangle(c.Bounds.X - 1, c.Bounds.Y - 1, c.Width + 1, c.Height + 1)));
+
+                            e.Graphics.DrawImage(bmp, -Left, -Top);
+                        }
+                    }
+                    else
+                    {
+                        base.OnPaintBackground(e);
+                    }
+                }
+            }
+            catch
+            {
+                base.OnPaintBackground(e);
             }
         }
 

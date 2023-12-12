@@ -1,4 +1,7 @@
-﻿namespace FourUI.Forms
+﻿using FourUIX.Components;
+using FourUIX.Controls;
+
+namespace FourUIX.Forms
 {
     partial class FourColorDialog
     {
@@ -31,15 +34,14 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(FourColorDialog));
             System.Drawing.Drawing2D.Matrix matrix1 = new System.Drawing.Drawing2D.Matrix();
-            this.fourPanel1 = new FourUI.FourPanel();
-            this.fourButton2 = new FourUI.FourButton();
-            this.fourButton1 = new FourUI.FourButton();
-            this.fourPictureBox1 = new FourPictureBox();
-            this.fourDrag1 = new FourUI.FourDrag(this.components);
-            this.fourRound1 = new FourUI.FourRound(this.components);
-            this.fourBorder1 = new FourUI.FourBorder(this.components);
-            this.fourBorder2 = new FourUI.FourBorder(this.components);
-            this.fourLabel1 = new FourUI.FourLabel();
+            this.fourPanel1 = new FourUIX.Controls.FourPanel();
+            this.fourButton2 = new FourUIX.Controls.FourButton();
+            this.fourButton1 = new FourUIX.Controls.FourButton();
+            this.fourPictureBox1 = new FourUIX.Controls.FourPictureBox();
+            this.fourDrag1 = new FourUIX.Components.FourDrag(this.components);
+            this.fourBorder1 = new FourUIX.Components.FourBorder(this.components);
+            this.fourBorder2 = new FourUIX.Components.FourBorder(this.components);
+            this.fourLabel1 = new FourUIX.Controls.FourLabel();
             this.fourTextBox1 = new FourTextBox();
             this.fourTextBox2 = new FourTextBox();
             this.fourTextBox3 = new FourTextBox();
@@ -63,18 +65,19 @@
             // 
             this.fourButton2.BorderWidth = 1;
             this.fourButton2.ButtonImage = null;
-            this.fourButton2.ButtonMode = FourUI.FourButton.ButtonModeEnum.Default;
+            this.fourButton2.ButtonMode = FourUIX.Controls.FourButton.ButtonModeEnum.Default;
             this.fourButton2.Checked = false;
             this.fourButton2.CheckedButtonImage = null;
             this.fourButton2.CheckedFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(131)))), ((int)(((byte)(255)))));
             this.fourButton2.CheckedForeColor = System.Drawing.Color.White;
             this.fourButton2.CornerRadius = 5;
+            this.fourButton2.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.fourButton2.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
             this.fourButton2.FocusedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.fourButton2.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F);
             this.fourButton2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.fourButton2.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-            this.fourButton2.ImageAlignment = FourUI.FourButton.ImageAlignmentOption.Left;
+            this.fourButton2.ImageAlignment = FourUIX.Controls.FourButton.ImageAlignmentOption.Left;
             this.fourButton2.ImageOffset = new System.Drawing.Point(0, 0);
             this.fourButton2.ImageSize = new System.Drawing.Size(20, 20);
             this.fourButton2.Location = new System.Drawing.Point(148, 466);
@@ -93,18 +96,19 @@
             // 
             this.fourButton1.BorderWidth = 1;
             this.fourButton1.ButtonImage = null;
-            this.fourButton1.ButtonMode = FourUI.FourButton.ButtonModeEnum.Default;
+            this.fourButton1.ButtonMode = FourUIX.Controls.FourButton.ButtonModeEnum.Default;
             this.fourButton1.Checked = false;
             this.fourButton1.CheckedButtonImage = null;
             this.fourButton1.CheckedFillColor = System.Drawing.Color.FromArgb(((int)(((byte)(28)))), ((int)(((byte)(131)))), ((int)(((byte)(255)))));
             this.fourButton1.CheckedForeColor = System.Drawing.Color.White;
             this.fourButton1.CornerRadius = 5;
+            this.fourButton1.DialogResult = System.Windows.Forms.DialogResult.Cancel;
             this.fourButton1.FillColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
             this.fourButton1.FocusedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.fourButton1.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F);
             this.fourButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.fourButton1.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
-            this.fourButton1.ImageAlignment = FourUI.FourButton.ImageAlignmentOption.Left;
+            this.fourButton1.ImageAlignment = FourUIX.Controls.FourButton.ImageAlignmentOption.Left;
             this.fourButton1.ImageOffset = new System.Drawing.Point(0, 0);
             this.fourButton1.ImageSize = new System.Drawing.Size(20, 20);
             this.fourButton1.Location = new System.Drawing.Point(12, 466);
@@ -121,6 +125,7 @@
             // 
             // fourPictureBox1
             // 
+            this.fourPictureBox1.BackColor = System.Drawing.Color.Transparent;
             this.fourPictureBox1.BorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(45)))), ((int)(((byte)(45)))), ((int)(((byte)(45)))));
             this.fourPictureBox1.BorderWidth = 1;
             this.fourPictureBox1.CornerRadius = 5;
@@ -138,11 +143,6 @@
             // 
             this.fourDrag1.Smoothness = 4F;
             this.fourDrag1.TargetControl = this;
-            // 
-            // fourRound1
-            // 
-            this.fourRound1.CornerRadius = 1;
-            this.fourRound1.TargetForm = this;
             // 
             // fourBorder1
             // 
@@ -166,7 +166,7 @@
             this.fourLabel1.Name = "fourLabel1";
             this.fourLabel1.Size = new System.Drawing.Size(266, 23);
             this.fourLabel1.TabIndex = 4;
-            this.fourLabel1.TextAlign = FourUI.FourLabel.TextAlignment.Center;
+            this.fourLabel1.TextAlign = FourUIX.Controls.FourLabel.TextAlignment.Center;
             this.fourLabel1.TextLines = new string[] {
         "RGB Input"};
             // 
@@ -182,12 +182,12 @@
             this.fourTextBox1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.fourTextBox1.Location = new System.Drawing.Point(34, 375);
             this.fourTextBox1.Name = "fourTextBox1";
-            this.fourTextBox1.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.fourTextBox1.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.fourTextBox1.PlaceholderText = "R";
             this.fourTextBox1.Size = new System.Drawing.Size(69, 30);
             this.fourTextBox1.TabIndex = 5;
             this.fourTextBox1.UnfocusedBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
-            this.fourTextBox1.UnfocusedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(23)))), ((int)(((byte)(23)))));
+            this.fourTextBox1.UnfocusedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.fourTextBox1.UnfocusedTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.fourTextBox1.TextChanged += new System.EventHandler(this.fourTextBox1_TextChanged);
             // 
@@ -203,12 +203,12 @@
             this.fourTextBox2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.fourTextBox2.Location = new System.Drawing.Point(109, 375);
             this.fourTextBox2.Name = "fourTextBox2";
-            this.fourTextBox2.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.fourTextBox2.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.fourTextBox2.PlaceholderText = "G";
             this.fourTextBox2.Size = new System.Drawing.Size(69, 30);
             this.fourTextBox2.TabIndex = 6;
             this.fourTextBox2.UnfocusedBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
-            this.fourTextBox2.UnfocusedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(23)))), ((int)(((byte)(23)))));
+            this.fourTextBox2.UnfocusedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.fourTextBox2.UnfocusedTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.fourTextBox2.TextChanged += new System.EventHandler(this.fourTextBox2_TextChanged);
             // 
@@ -224,21 +224,23 @@
             this.fourTextBox3.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.fourTextBox3.Location = new System.Drawing.Point(184, 375);
             this.fourTextBox3.Name = "fourTextBox3";
-            this.fourTextBox3.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(25)))), ((int)(((byte)(25)))), ((int)(((byte)(25)))));
+            this.fourTextBox3.PlaceholderForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(30)))), ((int)(((byte)(30)))), ((int)(((byte)(30)))));
             this.fourTextBox3.PlaceholderText = "B";
             this.fourTextBox3.Size = new System.Drawing.Size(69, 30);
             this.fourTextBox3.TabIndex = 7;
             this.fourTextBox3.UnfocusedBackgroundColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
-            this.fourTextBox3.UnfocusedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(23)))), ((int)(((byte)(23)))));
+            this.fourTextBox3.UnfocusedBorderColor = System.Drawing.Color.FromArgb(((int)(((byte)(34)))), ((int)(((byte)(34)))), ((int)(((byte)(34)))));
             this.fourTextBox3.UnfocusedTextColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.fourTextBox3.TextChanged += new System.EventHandler(this.fourTextBox3_TextChanged);
             // 
             // FourColorDialog
             // 
+            this.AcceptButton = this.fourButton1;
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(10)))), ((int)(((byte)(10)))), ((int)(((byte)(10)))));
-            this.ClientSize = new System.Drawing.Size(290, 509);
+            this.CancelButton = this.fourButton2;
+            this.ClientSize = new System.Drawing.Size(290, 507);
             this.Controls.Add(this.fourTextBox3);
             this.Controls.Add(this.fourTextBox2);
             this.Controls.Add(this.fourTextBox1);
@@ -261,7 +263,6 @@
 
         private FourPictureBox fourPictureBox1;
         private FourDrag fourDrag1;
-        private FourRound fourRound1;
         private FourPanel fourPanel1;
         private FourButton fourButton2;
         private FourButton fourButton1;

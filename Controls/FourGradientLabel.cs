@@ -1,14 +1,15 @@
 ﻿using System;
 using System.ComponentModel;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Linq;
 using System.Windows.Forms;
 
 namespace FourUIX.Controls
 {
-    public partial class FourLabel : Control
+    public partial class FourGradientLabel : Control
     {
-        public FourLabel()
+        public FourGradientLabel()
         {
             DoubleBuffered = true;
             SetStyle(ControlStyles.SupportsTransparentBackColor, true);
@@ -51,6 +52,7 @@ namespace FourUIX.Controls
 
         private TextAlignment textAlignmentEnum = TextAlignment.Left;
 
+        [Category("FourUI")]
         public TextAlignment TextAlign
         {
             get
@@ -64,9 +66,33 @@ namespace FourUIX.Controls
             }
         }
 
+        private float angle; 
+        
+        [Category("FourUI")]
+        public float Angle
+        {
+            get => angle;
+            set
+            {
+                if (angle != value)
+                {
+                    angle = value;
+                    Invalidate();
+                }
+            }
+        }
+
+        [Category("FourUI")]
+        public Color StartColor { get; set; } = Color.Red;
+
+        [Category("FourUI")]
+        public Color EndColor { get; set; } = Color.Blue;
+
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            e.Graphics.InterpolationMode = InterpolationMode.HighQualityBicubic;
+            e.Graphics.PixelOffsetMode = PixelOffsetMode.HighSpeed;
             Rectangle crect = ClientRectangle;
             crect.Inflate(5, 5);
             crect.Offset(-2, -2);
@@ -84,9 +110,9 @@ namespace FourUIX.Controls
 
             stringFormat.LineAlignment = StringAlignment.Near;
 
-            using (var brush = new SolidBrush(ForeColor))
+            using (var brush = new LinearGradientBrush(ClientRectangle, StartColor, EndColor, angle))
             {
-                RectangleF rect = new RectangleF(0, 0, Width, Height);
+                RectangleF rect = new RectangleF(0, 0, e.Graphics.MeasureString(Text, Font).Width, Font.Height);
 
                 string[] lines = Text.Split(new[] { Environment.NewLine }, StringSplitOptions.None);
 

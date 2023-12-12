@@ -5,7 +5,7 @@ using System.Management;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace FourUI
+namespace FourUIX.Components
 {
     public partial class FourControlDrag : Component
     {

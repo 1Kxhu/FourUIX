@@ -1,8 +1,8 @@
-﻿using FourUI.Forms;
+﻿using FourUIX.Forms;
 using System.ComponentModel;
 using System.Drawing;
 
-namespace FourUI.Components
+namespace FourUIX.Components
 {
     public partial class FourColorDialogWrapper : Component
     {
@@ -14,7 +14,7 @@ namespace FourUI.Components
         public FourColorDialog fourColorDialog = new FourColorDialog();
 
         private Color defaultColor;
-        private Color backColor;
+        private Color backColor = Color.FromArgb(10,10,10);
         private int buttonCornerRadius = 5;
         private int cornerRadius = 4;
 

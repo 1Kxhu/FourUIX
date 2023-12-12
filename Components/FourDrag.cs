@@ -4,7 +4,7 @@ using System.Drawing;
 using System.Management;
 using System.Windows.Forms;
 
-namespace FourUI
+namespace FourUIX.Components
 {
     public partial class FourDrag : Component
     {

@@ -2,16 +2,15 @@
 using System.ComponentModel;
 using System.Drawing;
 using System.Drawing.Drawing2D;
-using System.Windows;
 using System.Windows.Forms;
 
-namespace FourUI
+namespace FourUIX.Components
 {
     public partial class FourBorder : Component
     {
         private Form targetForm;
-        private int borderWidth = 1; 
-        private Color borderColor = Color.Red; 
+        private int borderWidth = 1;
+        private Color borderColor = Color.Red;
         private int borderRadius = 5;
 
 

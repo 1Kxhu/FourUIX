@@ -1,9 +1,8 @@
 ﻿using System;
 using System.Drawing;
-using System.Linq;
 using System.Windows.Forms;
 
-namespace FourUI.Forms
+namespace FourUIX.Forms
 {
     public partial class FourColorDialog : Form
     {
@@ -13,13 +12,13 @@ namespace FourUI.Forms
 
         }
 
-        public Color defaultColor { get; set; } 
+        public Color defaultColor { get; set; }
         public Color selectedColor { get; set; }
         public Color borderColor { get; set; } = Color.FromArgb(45, 45, 45);
 
-        public Color buttonColor { get; set; } = Color.FromArgb(10,10,10);
+        public Color buttonColor { get; set; } = Color.FromArgb(10, 10, 10);
         public Color buttonHoverColor { get; set; } = Color.FromArgb(14, 14, 14);
-        public Color buttonPressColor { get; set; } = Color.FromArgb(21,21,21);
+        public Color buttonPressColor { get; set; } = Color.FromArgb(21, 21, 21);
 
 
         public int buttonCornerRadius { get; set; } = 2;
@@ -42,7 +41,6 @@ namespace FourUI.Forms
             fourPictureBox1.CornerRadius = buttonCornerRadius;
             fourPanel1.CornerRadius = buttonCornerRadius;
 
-            fourRound1.CornerRadius = cornerRadius + 1;
             fourBorder1.BorderRadius = cornerRadius;
             fourBorder2.BorderRadius = cornerRadius - 1;
 
@@ -147,7 +145,7 @@ namespace FourUI.Forms
                 return;
             }
 
-            try 
+            try
             {
                 parsed = int.Parse(fourTextBox1.Text);
             }
@@ -159,14 +157,15 @@ namespace FourUI.Forms
             }
 
             if (parsed < 0 || parsed > 255)
-            { 
-                return; 
+            {
+                return;
             }
             else
-            { 
+            {
                 R = (int)parsed;
             }
             fourPanel1.PanelColor = Color.FromArgb(255, R, G, B);
+            selectedColor = Color.FromArgb(255, R, G, B);
         }
 
         private void fourTextBox2_TextChanged(object sender, EventArgs e)
@@ -198,6 +197,7 @@ namespace FourUI.Forms
                 G = (int)parsed;
             }
             fourPanel1.PanelColor = Color.FromArgb(255, R, G, B);
+            selectedColor = Color.FromArgb(255, R, G, B);
         }
 
         private void fourTextBox3_TextChanged(object sender, EventArgs e)
@@ -229,6 +229,7 @@ namespace FourUI.Forms
                 B = (int)parsed;
             }
             fourPanel1.PanelColor = Color.FromArgb(255, R, G, B);
+            selectedColor = Color.FromArgb(255, R, G, B);
         }
     }
 }

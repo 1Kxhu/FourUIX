@@ -1,7 +1,7 @@
 ﻿using System.Drawing;
 using System.Drawing.Drawing2D;
 
-namespace FourUI
+namespace FourUIX
 {
     public static class Helper
     {

@@ -3,7 +3,7 @@ using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.Windows.Forms;
 
-namespace FourUI
+namespace FourUIX.Controls
 {
     public class FourGradientPanel : Panel
     {
@@ -59,7 +59,7 @@ namespace FourUI
 
         public FourGradientPanel()
         {
-            DoubleBuffered = true; 
+            DoubleBuffered = true;
             SetStyle(ControlStyles.ResizeRedraw, true);
         }
 

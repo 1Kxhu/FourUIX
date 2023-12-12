@@ -1,4 +1,4 @@
-﻿namespace FourUI
+﻿namespace FourUIX.Components
 {
     partial class FourWindowAnimate
     {

@@ -1,4 +1,4 @@
-﻿using FourUI;
+﻿using FourUIX.Controls;
 using System.ComponentModel;
 using System.Windows.Forms.Design;
 

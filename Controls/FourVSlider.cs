@@ -1,4 +1,4 @@
-﻿using FourUI;
+﻿using FourUIX;
 using System;
 using System.ComponentModel;
 using System.Drawing;
@@ -33,19 +33,8 @@ public class FourVSlider : Control
         set { trackColorAfterThumb = value; Invalidate(); }
     }
 
-
-    public event EventHandler ValueChanged;
-
-    public FourVSlider()
-    {
-        this.Size = new Size(30, 200);
-        this.DoubleBuffered = true;
-
-        this.MouseDown += _MouseDown;
-        this.MouseUp += _MouseUp;
-        this.MouseMove += _MouseMove;
-    }
-
+    [Category("FourUI")]
+    [Description("Value of slider.")]
     public int Value
     {
         get { return value; }
@@ -64,6 +53,8 @@ public class FourVSlider : Control
         }
     }
 
+    [Category("FourUI")]
+    [Description("Minimum value of slider.")]
     public int Minimum
     {
         get { return minimum; }
@@ -78,6 +69,8 @@ public class FourVSlider : Control
         }
     }
 
+    [Category("FourUI")]
+    [Description("Maximum value of slider.")]
     public int Maximum
     {
         get { return maximum; }
@@ -90,6 +83,18 @@ public class FourVSlider : Control
                 this.value = maximum;
             this.Invalidate();
         }
+    }
+
+    public event EventHandler ValueChanged;
+
+    public FourVSlider()
+    {
+        this.Size = new Size(30, 200);
+        this.DoubleBuffered = true;
+
+        this.MouseDown += _MouseDown;
+        this.MouseUp += _MouseUp;
+        this.MouseMove += _MouseMove;
     }
 
     protected override void OnPaint(PaintEventArgs e)

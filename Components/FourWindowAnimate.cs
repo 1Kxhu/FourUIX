@@ -4,7 +4,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Windows.Forms;
 
-namespace FourUI
+namespace FourUIX.Components
 {
     [Flags]
     public enum AnimateWindowFlags

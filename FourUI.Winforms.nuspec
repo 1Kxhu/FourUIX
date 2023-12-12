@@ -7,6 +7,6 @@
     <description>A Modern Winforms UI Framework, that follows latest design trends.</description>
   </metadata>
   <files>
-    <file src="bin\Release\FourUI.dll" target="lib\netstandard2.0" />
+    <file src="bin\Release\FourUIX.dll" target="lib\netstandard2.0" />
   </files>
 </package>

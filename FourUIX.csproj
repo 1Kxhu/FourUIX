@@ -75,6 +75,9 @@
     <Compile Include="Components\FourColorDialogWrapper.Designer.cs">
       <DependentUpon>FourColorDialogWrapper.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\FourGradientLabel.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\FourListBox.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -82,6 +85,15 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\FourPictureBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\FourProgressCircle.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\FourResizeGrip.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\FourRoundGradientPanel.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\FourVSlider.cs">
@@ -187,6 +199,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="LICENSE.txt" />
+    <None Include="Resources\grip.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

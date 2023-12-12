@@ -1,13 +1,13 @@
-﻿namespace FourUI
+﻿namespace FourUIX.Components
 {
     partial class FourRound
     {
-                                private System.ComponentModel.IContainer components = null;
+        private System.ComponentModel.IContainer components = null;
 
-                                
+
         #region Component Designer generated code
 
-                                        private void InitializeComponent()
+        private void InitializeComponent()
         {
             components = new System.ComponentModel.Container();
         }
