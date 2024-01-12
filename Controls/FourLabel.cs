@@ -67,6 +67,11 @@ namespace FourUIX.Controls
         protected override void OnPaint(PaintEventArgs e)
         {
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+            e.Graphics.TextRenderingHint = System.Drawing.Text.TextRenderingHint.AntiAlias;
+            e.Graphics.InterpolationMode = System.Drawing.Drawing2D.InterpolationMode.HighQualityBicubic;
+            e.Graphics.PixelOffsetMode = System.Drawing.Drawing2D.PixelOffsetMode.HighQuality;
+
+
             Rectangle crect = ClientRectangle;
             crect.Inflate(5, 5);
             crect.Offset(-2, -2);

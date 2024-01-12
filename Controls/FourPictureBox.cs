@@ -12,7 +12,7 @@ namespace FourUIX.Controls
         private int _cornerRadius = 5;
         private float _rotationAngle = 0;
         private Matrix _translationMatrix = new Matrix();
-        private Color borderColor = Color.White;
+        private Color borderColor = Color.Transparent;
         private int borderWidth = 1;
 
         public FourPictureBox()

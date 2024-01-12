@@ -25,11 +25,22 @@ namespace FourUIX.Controls
 
         public FourSpinner()
         {
-            DoubleBuffered = true;
             ResizeRedraw = true;
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
             Application.Idle += Application_Idle;
 
             ForeColor = Color.FromArgb(33, 133, 255);
+
+            if (Parent != null)
+            {
+                Parent.Resize += inval;
+                Parent.Move += inval;
+            }
+        }
+
+        private void inval(object sender, EventArgs e)
+        {
+            Invalidate();
         }
 
         [Category("FourUI")]
@@ -77,6 +88,9 @@ namespace FourUIX.Controls
         int pulsingSize;
         bool animatingphase = false;
 
+        [Category("FourUI")]
+        public Color spinnerBackground { get; set; } = Color.FromArgb(25, 25, 25);
+
         protected override void OnPaint(PaintEventArgs e)
         {
             base.OnPaint(e);
@@ -84,44 +98,22 @@ namespace FourUIX.Controls
             int centerX = Width / 2;
             int centerY = Height / 2;
 
-            e.Graphics.TranslateTransform(centerX, centerY);
-            e.Graphics.RotateTransform(rotationAngle);
-            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
             int spinnerSize = Math.Min(centerX, centerY);
             int spinnerThickness = (spinnerSize / 10) * _thickness;
 
-            if (SpinnerType == SpinnerTypes.DefaultSpinner)
+            float startAngle = rotationAngle;
+
+            e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
+
+            using (var pen = new Pen(spinnerBackground, spinnerThickness))
             {
-
-
-                using (var pen = new Pen(ForeColor, spinnerThickness))
-                {
-                    float startAngle = 0;
-                    e.Graphics.DrawArc(pen, -spinnerSize / 2, -spinnerSize / 2, spinnerSize, spinnerSize, startAngle, sweepAngle);
-                }
+                e.Graphics.DrawArc(pen, spinnerSize / 2, spinnerSize / 2, spinnerSize, spinnerSize, sweepAngle, startAngle + 360 - sweepAngle);
             }
-            else if (SpinnerType == SpinnerTypes.PacMan)
+
+            using (var pen = new Pen(ForeColor, spinnerThickness))
             {
-
-                int newspinnerSize = pulsingSize;
-
-                if (pulsingSize < 1)
-                {
-                    pulsingSize = 1;
-                    animatingphase = false;
-                }
-                else
-                {
-                    spinnerSize = newspinnerSize;
-                }
-
-                using (var pen = new Pen(ForeColor, newspinnerSize))
-                {
-                    float startAngle = 0;
-                    e.Graphics.DrawArc(pen, -spinnerSize / 2, -spinnerSize / 2, spinnerSize, spinnerSize, startAngle, sweepAngle);
-                }
-
+                e.Graphics.DrawArc(pen, spinnerSize / 2, spinnerSize / 2, spinnerSize, spinnerSize, startAngle, sweepAngle);
             }
         }
 
@@ -129,38 +121,18 @@ namespace FourUIX.Controls
         {
             DateTime currentTime = DateTime.Now;
             double elapsedMilliseconds = (currentTime - lastRenderTime).TotalMilliseconds;
-            float angleChange = (float)((RotationSpeed * 90f) * elapsedMilliseconds / 900.0);
-            rotationAngle = (rotationAngle + angleChange) % 360;
+            rotationAngle = (rotationAngle + (float)(RotationSpeed * 0.1 * elapsedMilliseconds)) % 360;
             lastRenderTime = currentTime;
 
-            int centerX = Width / 2;
-            int centerY = Height / 2;
-            pulsingSize = Math.Min(centerX, centerY); ;
-            if (animatingphase)
-            {
-                pulsingSize += 1;
-            }
-            else
-            {
-                pulsingSize -= 1;
-            }
+            int center = Math.Min(Width, Height) / 2;
+            pulsingSize += animatingphase ? 1 : -1;
 
-            if (pulsingSize < 1)
-            {
-                pulsingSize = Math.Min(centerX, centerY);
-            }
-
-            if (pulsingSize > Math.Min(centerX, centerY) + 5)
-            {
-                animatingphase = false;
-            }
-            else if (pulsingSize < Math.Min(centerX, centerY) - 5)
-            {
-                animatingphase = true;
-            }
-
+            pulsingSize = Math.Min(center + 5, Math.Max(1, pulsingSize));
+            animatingphase = (pulsingSize == 1) ? true : (pulsingSize == center + 5) ? false : animatingphase;
 
             Invalidate();
         }
+
+
     }
 }
