@@ -96,6 +96,9 @@
     <Compile Include="Controls\FourRoundGradientPanel.cs">
       <SubType>Component</SubType>
     </Compile>
+    <Compile Include="Controls\FourCheckBox.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="Controls\FourVSlider.cs">
       <SubType>Component</SubType>
     </Compile>
