@@ -1,5 +1,5 @@
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
-[![Logo](https://i.imgur.com/Ui14t6x.png)](https://github.com/1Kxhu/FourUI)
+[![Logo](https://imgur.com/zzeXp6F)](https://github.com/1Kxhu/FourUI)
 
 
 # FourUI
