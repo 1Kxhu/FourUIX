@@ -1,45 +1,35 @@
 ﻿using System;
 using System.ComponentModel;
-using System.Drawing;
 using System.Windows.Forms;
+using Color = System.Drawing.Color;
+using Pen = System.Drawing.Pen;
 
 namespace FourUIX.Controls
 {
     public class FourSpinner : Control
     {
         private float rotationAngle = 0;
-        private DateTime lastRenderTime = DateTime.Now;
         private int sweepAngle = 270;
         private int _thickness = 1;
         private int rotationSpeed = 1;
-
-        public enum SpinnerTypes
-        {
-            DefaultSpinner,
-            PacMan
-        }
-
-        [Category("FourUI")]
-        public SpinnerTypes SpinnerType { get; set; } = SpinnerTypes.DefaultSpinner;
-
+        private Timer rotationTimer = new Timer();
 
         public FourSpinner()
         {
-            ResizeRedraw = true;
             SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-            Application.Idle += Application_Idle;
 
             ForeColor = Color.FromArgb(33, 133, 255);
 
-            if (Parent != null)
-            {
-                Parent.Resize += inval;
-                Parent.Move += inval;
-            }
+            // tried to make the timer not use 13% of my cpu, so did this instead
+            rotationTimer.Interval = 1;
+            rotationTimer.Tick += Rotation;
+            rotationTimer.Start();
         }
 
-        private void inval(object sender, EventArgs e)
+        private void Rotation(object sender, EventArgs ea)
         {
+            // rotation
+            rotationAngle += rotationSpeed;
             Invalidate();
         }
 
@@ -85,54 +75,33 @@ namespace FourUIX.Controls
             }
         }
 
-        int pulsingSize;
-        bool animatingphase = false;
+        Pen BackPen;
+        Pen ForePen;
 
         [Category("FourUI")]
         public Color spinnerBackground { get; set; } = Color.FromArgb(25, 25, 25);
 
+        float visualrotationangle;
+
         protected override void OnPaint(PaintEventArgs e)
         {
-            base.OnPaint(e);
-
+            visualrotationangle = ((visualrotationangle * 4) + rotationAngle * 2) / 6;
             int centerX = Width / 2;
             int centerY = Height / 2;
-
 
             int spinnerSize = Math.Min(centerX, centerY);
             int spinnerThickness = (spinnerSize / 10) * _thickness;
 
-            float startAngle = rotationAngle;
+            if (BackPen == null || ForePen == null)
+            {
+                BackPen = new Pen(spinnerBackground, spinnerThickness);
+                ForePen = new Pen(ForeColor, spinnerThickness);
+            }
 
             e.Graphics.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.AntiAlias;
 
-            using (var pen = new Pen(spinnerBackground, spinnerThickness))
-            {
-                e.Graphics.DrawArc(pen, spinnerSize / 2, spinnerSize / 2, spinnerSize, spinnerSize, sweepAngle, startAngle + 360 - sweepAngle);
-            }
-
-            using (var pen = new Pen(ForeColor, spinnerThickness))
-            {
-                e.Graphics.DrawArc(pen, spinnerSize / 2, spinnerSize / 2, spinnerSize, spinnerSize, startAngle, sweepAngle);
-            }
+            e.Graphics.DrawArc(BackPen, spinnerSize / 2, spinnerSize / 2, spinnerSize, spinnerSize, sweepAngle, visualrotationangle + 360 - sweepAngle);
+            e.Graphics.DrawArc(ForePen, spinnerSize / 2, spinnerSize / 2, spinnerSize, spinnerSize, visualrotationangle, sweepAngle);
         }
-
-        private void Application_Idle(object sender, EventArgs e)
-        {
-            DateTime currentTime = DateTime.Now;
-            double elapsedMilliseconds = (currentTime - lastRenderTime).TotalMilliseconds;
-            rotationAngle = (rotationAngle + (float)(RotationSpeed * 0.1 * elapsedMilliseconds)) % 360;
-            lastRenderTime = currentTime;
-
-            int center = Math.Min(Width, Height) / 2;
-            pulsingSize += animatingphase ? 1 : -1;
-
-            pulsingSize = Math.Min(center + 5, Math.Max(1, pulsingSize));
-            animatingphase = (pulsingSize == 1) ? true : (pulsingSize == center + 5) ? false : animatingphase;
-
-            Invalidate();
-        }
-
-
     }
 }

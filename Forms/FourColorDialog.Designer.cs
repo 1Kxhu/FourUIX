@@ -77,6 +77,7 @@ namespace FourUIX.Forms
             this.fourButton2.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F);
             this.fourButton2.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.fourButton2.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.fourButton2.HoverForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.fourButton2.ImageAlignment = FourUIX.Controls.FourButton.ImageAlignmentOption.Left;
             this.fourButton2.ImageOffset = new System.Drawing.Point(0, 0);
             this.fourButton2.ImageSize = new System.Drawing.Size(20, 20);
@@ -108,6 +109,7 @@ namespace FourUIX.Forms
             this.fourButton1.Font = new System.Drawing.Font("Microsoft YaHei UI", 10F);
             this.fourButton1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.fourButton1.HoverColor = System.Drawing.Color.FromArgb(((int)(((byte)(24)))), ((int)(((byte)(24)))), ((int)(((byte)(24)))));
+            this.fourButton1.HoverForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(200)))), ((int)(((byte)(200)))), ((int)(((byte)(200)))));
             this.fourButton1.ImageAlignment = FourUIX.Controls.FourButton.ImageAlignmentOption.Left;
             this.fourButton1.ImageOffset = new System.Drawing.Point(0, 0);
             this.fourButton1.ImageSize = new System.Drawing.Size(20, 20);
@@ -137,11 +139,10 @@ namespace FourUIX.Forms
             this.fourPictureBox1.TabIndex = 0;
             this.fourPictureBox1.Text = "fourPictureBox1";
             this.fourPictureBox1.TranslationMatrix = matrix1;
-            this.fourPictureBox1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.fourPictureBox1_MouseMove);
             // 
             // fourDrag1
             // 
-            this.fourDrag1.Smoothness = 4F;
+            this.fourDrag1.Smoothness = 1F;
             this.fourDrag1.TargetControl = this;
             // 
             // fourBorder1
@@ -160,7 +161,7 @@ namespace FourUIX.Forms
             // 
             // fourLabel1
             // 
-            this.fourLabel1.Font = new System.Drawing.Font("Microsoft YaHei UI", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.fourLabel1.Font = new System.Drawing.Font("Microsoft YaHei UI", 11.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.fourLabel1.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(100)))), ((int)(((byte)(100)))), ((int)(((byte)(100)))));
             this.fourLabel1.Location = new System.Drawing.Point(12, 353);
             this.fourLabel1.Name = "fourLabel1";

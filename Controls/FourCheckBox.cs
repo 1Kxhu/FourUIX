@@ -136,14 +136,6 @@ namespace FourUIX.Controls
 
             e.Graphics.SmoothingMode = SmoothingMode.AntiAlias;
 
-            using (GraphicsPath path = Helper.RoundedRectangleXY(rectX, rectY, rectWidth, rectHeight, cornerRadius))
-            {
-                using (Pen borderPen = new Pen(borderColor))
-                {
-                    e.Graphics.DrawPath(borderPen, path);
-                }
-            }
-
             if (Checked)
             {
                 thumbColor = Color.FromArgb(((thumbColor.R * 2) + thumbColorChecked.R) / 3, ((thumbColor.G * 2) + thumbColorChecked.G) / 3, ((thumbColor.B * 2) + thumbColorChecked.B) / 3);
@@ -152,7 +144,6 @@ namespace FourUIX.Controls
             {
                 thumbColor = Color.FromArgb(((thumbColor.R * 2) + thumbColorUnchecked.R) / 3, ((thumbColor.G * 2) + thumbColorUnchecked.G) / 3, ((thumbColor.B * 2) + thumbColorUnchecked.B) / 3);
             }
-
 
             if (DesignMode)
             {
@@ -166,9 +157,17 @@ namespace FourUIX.Controls
                 }
             }
 
+            using (GraphicsPath path = Helper.RoundedRectangleXY(rectX, rectY, rectWidth, rectHeight, cornerRadius))
+            {
+                using (Pen borderPen = new Pen(borderColor))
+                {
+                    e.Graphics.DrawPath(borderPen, path);
+                }
+            }
+
             using (Brush thumbBrush = new SolidBrush(thumbColor))
             {
-                GraphicsPath path = Helper.RoundedRectangleXY(rectX, rectY, rectWidth, rectHeight, cornerRadius);
+                GraphicsPath path = Helper.RoundedRectangleXY(rectX+2, rectY+2, rectWidth-4, rectHeight-4, cornerRadius);
                 e.Graphics.FillPath(thumbBrush, path);
             }
 

@@ -28,7 +28,7 @@ namespace FourUIX.Components
                 ManagementObjectSearcher searcher = new ManagementObjectSearcher("SELECT * FROM Win32_VideoController");
                 foreach (ManagementObject mo in searcher.Get())
                 {
-                    return Convert.ToInt32(mo["CurrentRefreshRate"]) + 1;
+                    return Convert.ToInt32(mo["CurrentRefreshRate"]);
                 }
             }
             catch
@@ -90,7 +90,7 @@ namespace FourUIX.Components
 
         private void TargetControl_MouseMove(object sender, MouseEventArgs e)
         {
-            if (isDragging && smoothness != 1)
+            if (isDragging)
             {
                 Point mousePos = targetControl.PointToScreen(e.Location);
                 mousePos.Offset(-mouseOffset.X, -mouseOffset.Y);
@@ -98,20 +98,10 @@ namespace FourUIX.Components
                 float targetX = mousePos.X;
                 float targetY = mousePos.Y;
 
-                float dx = targetX - targetControl.Location.X;
-                float dy = targetY - targetControl.Location.Y;
-
-                smoothMoveTimer.Start();
-                smoothMoveTimer.Tag = new PointF(dx / smoothness, dy / smoothness);
-            }
-            if (isDragging && smoothness == 1)
-            {
-                Point mousePos = targetControl.PointToScreen(e.Location);
-                mousePos.Offset(-mouseOffset.X, -mouseOffset.Y);
-
-                targetControl.Location = mousePos;
+                targetControl.Location = new Point((int)targetX, (int)targetY);
             }
         }
+
 
         private void TargetControl_MouseUp(object sender, MouseEventArgs e)
         {

@@ -1,6 +1,8 @@
 ﻿using FourUIX.Forms;
 using System.ComponentModel;
 using System.Drawing;
+using System.Windows.Forms;
+using System.Xml.Linq;
 
 namespace FourUIX.Components
 {
@@ -11,27 +13,21 @@ namespace FourUIX.Components
             InitializeComponent();
         }
 
+        public DialogResult ShowDialog()
+        {
+            InitializeComponent();
+            fourColorDialog = new FourColorDialog();
+            DialogResult result = fourColorDialog.ShowDialog();
+            fourColorDialog = null;
+            return result;
+        }
+
         public FourColorDialog fourColorDialog = new FourColorDialog();
 
-        private Color defaultColor;
-        private Color backColor = Color.FromArgb(10,10,10);
         private int buttonCornerRadius = 5;
         private int cornerRadius = 4;
 
-        [Category("Appearance")]
-        public Color DefaultColor
-        {
-            get { return defaultColor; }
-            set { defaultColor = value; fourColorDialog.defaultColor = value; }
-        }
-
-        [Category("Appearance")]
-        public Color BackColor
-        {
-            get { return backColor; }
-            set { backColor = value; fourColorDialog.BackColor = value; }
-        }
-
+       
         [Category("Appearance")]
         public int ButtonCornerRadius
         {
@@ -46,30 +42,7 @@ namespace FourUIX.Components
             set { cornerRadius = value; fourColorDialog.cornerRadius = value; }
         }
 
-        private Color buttonColor { get; set; } = Color.FromArgb(10, 10, 10);
-        private Color buttonHoverColor { get; set; } = Color.FromArgb(14, 14, 14);
-        private Color buttonPressColor { get; set; } = Color.FromArgb(21, 21, 21);
-
-        [Category("Appearance")]
-        public Color ButtonColor
-        {
-            get { return buttonColor; }
-            set { buttonColor = value; fourColorDialog.buttonColor = value; }
-        }
-
-        [Category("Appearance")]
-        public Color ButtonHoverColor
-        {
-            get { return buttonHoverColor; }
-            set { buttonHoverColor = value; fourColorDialog.buttonHoverColor = value; }
-        }
-
-        [Category("Appearance")]
-        public Color ButtonPressColor
-        {
-            get { return buttonPressColor; }
-            set { buttonPressColor = value; fourColorDialog.buttonPressColor = value; }
-        }
+       
 
         public FourColorDialogWrapper(IContainer container)
         {
